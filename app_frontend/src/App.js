@@ -3,15 +3,17 @@ import { Route, Routes, useNavigate } from 'react-router-dom'
 import Login from './components/Login'
 import Home from './container/Home'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
+import jwt_decode from 'jwt-decode'
 
 const App = () => {
 
   return(
     <GoogleOAuthProvider clientId='555889186138-mjdk21rvv719jlsajdumqhns886e20m3.apps.googleusercontent.com'>
-      <GoogleLogin onSuccess={credentialResponse => {
-        console.log(credentialResponse)
+      <GoogleLogin onSuccess={(credentialResponse) => {
+        var decoded = jwt_decode(credentialResponse.credential)
+        console.log(decoded)
       }} onError={() => {
-        console.log("Login Failed")
+        console.log("Login Failed") 
       }}/>
     </GoogleOAuthProvider>
   )
